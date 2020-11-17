@@ -9,7 +9,10 @@
 <body>
 <h1>Frituur Frida</h1>
 <h2>Vandaag zijn we <span th:text="${open}"></span></h2>
-
+<dl>
+    <dt>Adres</dt>
+    <dd th:object="${adres}" th:text="|*{straat} *{huisNr}, *{gemeente.postCode} *{gemeente.naam}|"></dd>
+</dl>
 </body>
 </html>
 
