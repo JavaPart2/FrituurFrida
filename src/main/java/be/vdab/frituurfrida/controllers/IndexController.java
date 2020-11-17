@@ -1,19 +1,21 @@
 package be.vdab.frituurfrida.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@RestController
+@Controller
 @RequestMapping("/")
-public class IndexController {
+class IndexController {
     @GetMapping
-    public String index(){
+    public ModelAndView index(){
         var openOfGesloten = LocalDate.now().getDayOfWeek().getValue() == 1 ? "gesloten" : "open";
-        return "<!doctype html><html><title>Hallo</title><body>De frituur is " + openOfGesloten + "</body></html>";
+        return new ModelAndView("index", "open", openOfGesloten);
     }
 
 }
