@@ -3,3 +3,6 @@ body {
     font-family: sans-serif;
     color: chocolate;
 }
+table {
+    border: 1px;
+}

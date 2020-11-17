@@ -1,0 +1,15 @@
+
+<div xmlns:th="http://www.thymeleaf.org">
+    <nav th:fragment="menu">
+        <ul>
+            <li><a th:href="@{/}">Welkom</a></li>
+            <li><a th:href="@{/sauzen}">Sauzen</a></li>
+        </ul>
+    </nav>
+    <head th:fragment="head(title)">
+        <meta charset="UTF-8">
+        <link rel="icon" th:href="@{/images/frida.ico}" type="image/x-icon">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" th:href="@{/css/frida.css}">
+    </head>
+</div>
