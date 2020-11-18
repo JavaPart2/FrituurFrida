@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <tr th:each="saus:${sauzen}" th:object="${saus}">
-        <td th:text="*{naam}"></td>
+        <td><a th:text="*{naam}" th:href="@{/sauzen/{id}(id=*{nummer})}"></a></td>
         <td><span th:each="ingredient:*{ingredienten}" th:text="|${ingredient}  |"></span></td>
     </tr>
     </tbody>
