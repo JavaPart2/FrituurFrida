@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Aantal bezoeken')"></head>
+
+<body>
+<nav th:replace="fragments::menu"></nav>
+<h1>
+    <span th:text="${visits}"></span>
+</h1>
+
+<p><a th:href="@{/kleuren/roze}">Roze</a> </p>
+<p><a th:href="@{/kleuren/blauw}">Blauw</a> </p>
+
+</body>
+</html>
+

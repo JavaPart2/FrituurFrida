@@ -5,7 +5,8 @@
 <body>
 <nav th:replace="fragments::menu"></nav>
 <h1>Frituur Frida</h1>
-<h2>Vandaag zijn we <span th:text="${open}"></span></h2>
+<h2 th:text="${welkom}">Welkom</h2>
+<h3>Vandaag zijn we <span th:text="${open}"></span></h3>
 <dl>
     <dt>Adres</dt>
     <dd th:object="${adres}" th:text="|*{straat} *{huisNr}, *{gemeente.postCode} *{gemeente.naam}|"></dd>
