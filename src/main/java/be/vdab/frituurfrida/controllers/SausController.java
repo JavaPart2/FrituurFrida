@@ -3,6 +3,8 @@ package be.vdab.frituurfrida.controllers;
 import be.vdab.frituurfrida.domain.Adres;
 import be.vdab.frituurfrida.domain.Gemeente;
 import be.vdab.frituurfrida.domain.Saus;
+import be.vdab.frituurfrida.services.SausService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,22 +26,30 @@ class SausController {
             new Saus(4, "Tartare", new String[]{"ei", "azijn", "olie", "zout", "kruiden"}),
             new Saus(5, "Vinaigrette", new String[]{"azijn", "olie", "zout"})
     };
+
+    @Autowired
+    private SausService sausService;
+
     @GetMapping
     public ModelAndView index(){
-        var modelandview = new ModelAndView("sauzen", "sauzen", sauzen);
+        var modelandview = new ModelAndView("sauzen", "sauzen", sausService.findAll());
         return modelandview;
     }
 
     @GetMapping("{id}")
     public ModelAndView sauss(@PathVariable int id){
         ModelAndView modelAndView = new ModelAndView("saus");
-        Arrays.stream(sauzen).filter(saus -> saus.getNummer() == id).findFirst()
+        sausService.findById(id)
                 .ifPresent(saus -> modelAndView.addObject("saus", saus));
+//        Arrays.stream(sauzen).filter(saus -> saus.getNummer() == id).findFirst()
+//                .ifPresent(saus -> modelAndView.addObject("saus", saus));
         return modelAndView;
     }
 
     private List<Character> beginLetters(){
-        return Arrays.stream(sauzen).map(saus -> saus.getNaam().toLowerCase().charAt(0))
+//        return Arrays.stream(sauzen).map(saus -> saus.getNaam().toLowerCase().charAt(0))
+//                .distinct().sorted().collect(Collectors.toList());
+        return sausService.findAll().stream().map(saus -> saus.getNaam().toLowerCase().charAt(0))
                 .distinct().sorted().collect(Collectors.toList());
     }
 
@@ -50,9 +60,10 @@ class SausController {
     }
 
     private List<Saus> sauzenMetLetter(Character letter){
-        return Arrays.stream(sauzen)
-                .filter(saus -> saus.getNaam().toLowerCase().charAt(0) == letter)
-                .collect(Collectors.toList());
+//        return Arrays.stream(sauzen)
+//                .filter(saus -> saus.getNaam().toLowerCase().charAt(0) == letter)
+//                .collect(Collectors.toList());
+        return sausService.findByNameBeginMet(letter);
     }
 
     @GetMapping("alfabet/{letter}")

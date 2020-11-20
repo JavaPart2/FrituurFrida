@@ -7,7 +7,7 @@
 <h1>Frituur Frida</h1>
 <h2>Sauzen</h2>
 <h2 th:if="not ${saus}">Saus niet gevonden:
-    <span th:text="${saus.nummer}"></span>
+    <span th:text="${saus}"></span>
 </h2>
 <div th:if="${saus}" th:object="${saus}">
     <h2 th:text="*{naam}"></h2>
