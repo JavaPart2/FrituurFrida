@@ -3,12 +3,12 @@ package be.vdab.frituurfrida.repositories;
 import be.vdab.frituurfrida.domain.Saus;
 import be.vdab.frituurfrida.exceptions.SausRepositoryException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +17,13 @@ import java.util.stream.Collectors;
 @Component
 @Qualifier("CSV")
 public class CSVSausRepository implements SausRepository{
-    private static final Path PAD = Paths.get("/data/sauzen.csv");
+
+    private final Path PAD;
+
+    public CSVSausRepository(@Value("${csv}") Path pad) {
+        PAD = pad;
+    }
+
     @Override
     public List<Saus> findAll() throws SausRepositoryException {
         List<Saus> sauzen = new ArrayList<>();
