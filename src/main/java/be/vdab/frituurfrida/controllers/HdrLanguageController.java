@@ -22,6 +22,5 @@ class HdrLanguageController {
                 .ifPresent(l -> modelAndView.addObject("hdrlang", l));
         return modelAndView;
     }
-
 }
 
