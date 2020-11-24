@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Frituur Frida')"></head>
+
+<body>
+<nav th:replace="fragments::menu"></nav>
+<h1>Frituur Frida Snacks</h1>
+<ul>
+    <li th:each="letter:${beginletters}">
+        <a th:href="@{/snacks/{letter}(letter=${letter})}"
+           th:text="${letter}"></a>
+    </li>
+</ul>
+<h2 th:if="${letter}">Snacks beginnen met letter <span th:text="${letter}"></span> : </h2>
+<ul th:if="${snacks}">
+    <li th:each="snack:${snacks}" th:text="${snack.naam}"></li>
+</ul>
+
+</body>
+</html>
+
