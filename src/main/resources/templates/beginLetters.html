@@ -9,7 +9,9 @@
 
 <form th:object="${beginLetterForm}" method="get"
       th:action="@{/snacks/beginLetters}">
-    <label>Snacks die beginnen met: <input th:field="*{beginletters}"></label>
+    <label>Snacks die beginnen met:
+        <input th:field="*{beginletters}" required minlength="1" type="text">
+    </label>
     <button>Zoeken</button>
 </form>
 
