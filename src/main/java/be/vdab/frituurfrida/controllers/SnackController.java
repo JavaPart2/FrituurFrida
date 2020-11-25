@@ -2,6 +2,7 @@ package be.vdab.frituurfrida.controllers;
 
 import be.vdab.frituurfrida.domain.Saus;
 import be.vdab.frituurfrida.domain.Snack;
+import be.vdab.frituurfrida.forms.BeginLetterForm;
 import be.vdab.frituurfrida.services.SausService;
 import be.vdab.frituurfrida.services.SnackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,21 @@ class SnackController {
                         snackService.findByBeginName(String.valueOf(letter)));
         modelAndView.addObject("beginletters", alfabet);
         return modelAndView;
+    }
+
+    @GetMapping("beginLetters/form")
+    public ModelAndView beginLetterForm(){
+        return new ModelAndView("beginLetters")
+                .addObject(new BeginLetterForm("a"));
+    }
+
+    @GetMapping("beginLetters")
+    public ModelAndView beginLetters(BeginLetterForm form){
+        ModelAndView modelAndView = new ModelAndView("beginLetters");
+        modelAndView.addObject("snacks",
+                snackService.findByBeginName(form.getBeginletters()));
+        return modelAndView;
+
     }
 }
 
