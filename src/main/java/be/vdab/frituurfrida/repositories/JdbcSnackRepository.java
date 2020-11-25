@@ -51,7 +51,7 @@ public class JdbcSnackRepository implements SnackRepository{
 
     @Override
     public List<Snack> findByBeginName(String beginNaam) {
-        var sql = "select id, naam, prijs from snacks where naam like ?";
+        var sql = "select id, naam, prijs from snacks where lower(naam) like concat(?, '%')";
         return template.query(sql, snackMapper, beginNaam);
     }
 }

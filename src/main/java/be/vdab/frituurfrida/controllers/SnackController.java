@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 class SnackController {
     private final char[] alfabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
+    @Autowired
     private SnackService snackService;
 
     @GetMapping
