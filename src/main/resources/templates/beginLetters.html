@@ -17,10 +17,12 @@
 
 <ul th:if="${snacks}">
     <li th:each="snack:${snacks}" th:object="${snack}">
-        <span th:text="*{naam}"></span>
+        <a th:href="@{/snacks/wijzigen/{id}/form(id=*{id})}">
+            <span th:text="*{naam}"></span>
+        </a>
     </li>
-
 </ul>
+
 </body>
 </html>
 

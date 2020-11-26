@@ -7,11 +7,15 @@ import be.vdab.frituurfrida.services.SausService;
 import be.vdab.frituurfrida.services.SnackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,6 +55,24 @@ class SnackController {
         modelAndView.addObject("snacks",
                 snackService.findByBeginName(form.getBeginletters()));
         return modelAndView;
+
+    }
+
+    @GetMapping("wijzigen/{id}/form")
+    public ModelAndView wijzigenSnackForm(@PathVariable long id){
+        ModelAndView modelAndView =
+                new ModelAndView("wijzigenSnack");
+        snackService.read(id).ifPresent(snack -> modelAndView.addObject(snack));
+        return modelAndView;
+    }
+
+    @PostMapping("wijzigen")
+    public String wijzigenSnack(@Valid Snack snack, Errors errors, RedirectAttributes redirect){
+        if (errors.hasErrors()) {
+            return "wijzigSnack";
+        }
+        snackService.update(snack);
+        return "redirect:/";
 
     }
 }

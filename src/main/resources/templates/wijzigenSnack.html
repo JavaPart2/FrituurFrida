@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Frituur Frida Snacks')"></head>
+
+<body>
+<nav th:replace="fragments::menu"></nav>
+<h1>Frituur Frida</h1>
+<h2>Wijzigen Snack</h2>
+
+<form th:if="${snack}" th:object="${snack}" method="post"
+      th:action="@{/snacks/wijzigen}">
+    <label>Naam:
+        <input th:field="*{naam}" required type="text">
+    </label>
+    <label>Prijs:
+        <input th:field="*{prijs}" type="number" required min="0" step="0.01">
+    </label>
+    <input type="hidden" name="id" th:value="*{id}"/>
+    <button>Wijzigen</button>
+</form>
+
+<div th:if="not ${snack}">Snack niet gevonden</div>
+
+</body>
+</html>
+
