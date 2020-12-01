@@ -5,18 +5,18 @@
 <body>
 <nav th:replace="fragments::menu"></nav>
 <h1>Frituur Frida, Zoek de Friet</h1>
-<form th:each="deur:${deuren}" th:action="@{/zoekdefriet/nieuwspel}">
-    <a th:href="@{/zoekdefriet/${deur.index}}">
-        <button th:if="${deur.open} and not ${deur.metFriet}">
-                <img th:src="/images/deuropen.png">
-        </button>
-        <button th:if="not ${deur.open}">
-            <img th:src="/images/deurtoe.png">
-        </button>
-        <button th:if="${deur.open} and ${deur.metFriet}">
-            <img th:src="/images/gevonden.png">
-        </button>
-    </a>
+<a th:each="deur:${deuren}" th:href="@{/zoekdefriet/{index}(index=${deur.index})}">
+    <button th:if="${deur.open} and not ${deur.metFriet}">
+        <img th:src="@{/images/deuropen.png}">
+    </button>
+    <button th:if="not ${deur.open}">
+        <img th:src="@{/images/deurtoe.png}">
+    </button>
+    <button th:if="${deur.open} and ${deur.metFriet}">
+        <img th:src="@{/images/gevonden.png}">
+    </button>
+</a>
+<form th:action="@{/zoekdefriet/nieuwspel}" method="post">
     <button>Nieuw Spel</button>
 </form>
 </body>

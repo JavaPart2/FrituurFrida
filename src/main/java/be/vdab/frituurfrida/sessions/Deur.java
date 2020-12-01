@@ -3,6 +3,7 @@ package be.vdab.frituurfrida.sessions;
 import java.io.Serializable;
 
 public class Deur implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final int index;
     private boolean open;
     private boolean metFriet;
@@ -10,6 +11,10 @@ public class Deur implements Serializable {
     public Deur(int index, boolean metFriet) {
         this.index = index;
         this.open = false;
+        this.metFriet = metFriet;
+    }
+
+    public void setMetFriet(boolean metFriet) {
         this.metFriet = metFriet;
     }
 

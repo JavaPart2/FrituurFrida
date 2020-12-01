@@ -9,18 +9,12 @@ import java.util.Random;
 @Component
 @SessionScope
 public class Game implements Serializable {
+    private static final long serialVersionUID = 1L;
     private static final int AANTALDEUREN = 7;
     private Deur[] deuren = new Deur[AANTALDEUREN];
 
     public Game() {
-        int posFriet = new Random().nextInt(AANTALDEUREN);
-        for (int i = 0 ; i <= AANTALDEUREN; i++){
-            if (i == posFriet){
-                Deur deur = new Deur(i,true);
-            }else {
-                Deur deur = new Deur(i,false);
-            }
-        }
+        nieuwSpel();
     }
 
     public Deur[] getDeuren() {
@@ -35,7 +29,14 @@ public class Game implements Serializable {
         deuren[ind].setOpen(true);
     }
 
-    public Game nieuwSpel(){
-        return new Game();
+    public void nieuwSpel(){
+        int posFriet = new Random().nextInt(AANTALDEUREN);
+        for (int i = 0 ; i < AANTALDEUREN; i++){
+            Deur deur = new Deur(i, false);
+            if (i == posFriet){
+                deur.setMetFriet(true);
+            }
+            deuren[i] = deur;
+        }
     }
 }

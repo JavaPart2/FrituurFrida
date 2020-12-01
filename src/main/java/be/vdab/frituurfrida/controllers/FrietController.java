@@ -24,7 +24,7 @@ public class FrietController {
         return modelAndView;
     }
 
-    @PostMapping("{ind}")
+    @GetMapping("{ind}")
     public String  button(@PathVariable int ind){
         game.openDeur(ind);
         return "redirect:/zoekdefriet";
