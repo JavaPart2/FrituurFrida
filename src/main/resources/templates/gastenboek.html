@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title='Frituur Frida Gastenboek')"></head>
+
+<body>
+<nav th:replace="fragments::menu"></nav>
+<h1>Frituur Frida Gastenboek</h1>
+
+<form th:if="${bericht}" th:object="${bericht}" th:action="@{/gastenboek/toevoegen}" method="post">
+    <label>Naam:
+        <input type="text" th:field="*{naam}" autofocus>
+    </label>
+    <label>Bericht:
+        <input type="text" th:field="*{bericht}">
+    </label>
+    <input type="hidden" th:field="*{datum}" />
+    <input type="hidden" name="id" value="0" />
+    <button>Toevoegen</button>
+</form>
+
+<ul th:if="${berichten}">
+    <li th:each="entry:${berichten}" th:object="${entry}">
+        <span th:text="*{datum}"></span> ;
+        <span th:text="*{naam}"></span> ;
+        <span th:text="*{bericht}"></span>
+    </li>
+</ul>
+
+<p th:if="not ${berichten}">Er zijn nog geen meldingen toegevoegd.</p>
+
+<form th:if="not ${bericht}" th:action="@{/gastenboek/toevoegen/form}" method="get">
+    <button>Melding toevoegen</button>
+</form>
+
+</body>
+</html>
+
