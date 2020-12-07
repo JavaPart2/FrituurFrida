@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("gastenboek")
@@ -26,6 +27,10 @@ class GastenBoekController {
     @Autowired
     private GastenBoekService service;
 
+    public GastenBoekController(GastenBoekService service) {
+        this.service = service;
+    }
+
     @GetMapping
     public ModelAndView toonBerichten() throws GastenboekLeegException {
         ModelAndView modelAndView = new ModelAndView("gastenboek");
@@ -33,20 +38,33 @@ class GastenBoekController {
         return modelAndView;
     }
 
-    @GetMapping("/toevoegen/form")
+    @GetMapping("toevoegen/form")
     public ModelAndView toonBerichtenForm() throws GastenboekLeegException {
         ModelAndView modelAndView = new ModelAndView("gastenboek");
         modelAndView.addObject("berichten", service.findAll());
-        modelAndView.addObject("bericht", new GastenboekBericht(0, "", ""));
+        modelAndView.addObject("berichtform",
+                new BerichtForm("", ""));
         return modelAndView;
     }
 
-    @PostMapping("/toevoegen")
-    public String toevoegBericht(GastenboekBericht bericht, Errors errors){
+    @PostMapping("toevoegen")
+    public String toevoegBericht(@Valid BerichtForm form, Errors errors){
         if (errors.hasErrors()){
             return "redirect:/gastenboek";
         }
-        service.insert(bericht);
+        service.insert(form);
+        return "redirect:/gastenboek";
+    }
+
+    @PostMapping("beheer")
+    public String beheerBericht(long[] ids, String actie){
+        if (ids != null){
+            if (actie.equals("verwijderen")){
+                service.deleteIds(ids);
+            }else if (actie.equals("aanpassen")){
+                service.updateIds(ids);
+            }
+        }
         return "redirect:/gastenboek";
     }
 }

@@ -1,19 +1,12 @@
 package be.vdab.frituurfrida.forms;
 
-public class BerichtForm {
-    private final String naam;
-    private final String bericht;
+import be.vdab.frituurfrida.domain.GastenboekBericht;
+
+import java.time.LocalDate;
+
+public class BerichtForm extends GastenboekBericht {
 
     public BerichtForm(String naam, String bericht) {
-        this.naam = naam;
-        this.bericht = bericht;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public String getBericht() {
-        return bericht;
+        super(0, naam, bericht, LocalDate.now());
     }
 }

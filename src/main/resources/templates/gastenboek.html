@@ -6,7 +6,8 @@
 <nav th:replace="fragments::menu"></nav>
 <h1>Frituur Frida Gastenboek</h1>
 
-<form th:if="${bericht}" th:object="${bericht}" th:action="@{/gastenboek/toevoegen}" method="post">
+<form th:if="${berichtform}" th:object="${berichtform}"
+      th:action="@{/gastenboek/toevoegen}" method="post">
     <label>Naam:
         <input type="text" th:field="*{naam}" autofocus>
     </label>
@@ -18,17 +19,23 @@
     <button>Toevoegen</button>
 </form>
 
-<ul th:if="${berichten}">
-    <li th:each="entry:${berichten}" th:object="${entry}">
-        <span th:text="*{datum}"></span> ;
-        <span th:text="*{naam}"></span> ;
-        <span th:text="*{bericht}"></span>
-    </li>
-</ul>
+
+<form th:if="${berichten}" method="post" th:action="@{/gastenboek/beheer}">
+    <ul th:if="${berichten}">
+        <li th:each="entry:${berichten}" th:object="${entry}">
+            <span th:text="*{{datum}}"></span>
+            <strong><span th:text="*{naam}"></span> :</strong>
+            <span th:text="*{bericht}"></span>
+            <input type="checkbox" name="ids" th:value="*{id}">
+        </li>
+    </ul>
+    <button name="actie" th:value="verwijderen">Verwijderen</button>
+    <button name="actie" th:value="aanpassen">Aanpassen</button>
+</form>
 
 <p th:if="not ${berichten}">Er zijn nog geen meldingen toegevoegd.</p>
 
-<form th:if="not ${bericht}" th:action="@{/gastenboek/toevoegen/form}" method="get">
+<form th:if="not ${berichtform}" th:action="@{/gastenboek/toevoegen/form}" method="get">
     <button>Melding toevoegen</button>
 </form>
 

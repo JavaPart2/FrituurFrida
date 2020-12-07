@@ -7,11 +7,13 @@ import be.vdab.frituurfrida.repositories.GastenBoekRepository;
 import be.vdab.frituurfrida.repositories.SnackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class DefaultBerichtService implements GastenBoekService{
     @Autowired
     private GastenBoekRepository repository;
@@ -48,5 +50,19 @@ public class DefaultBerichtService implements GastenBoekService{
     @Override
     public long insert(GastenboekBericht gastenboekBericht) {
         return repository.insert(gastenboekBericht);
+    }
+
+    @Override
+    public void deleteIds(long[] ids) {
+        for (int i = 0; i < ids.length; i++) {
+            findById(ids[i]).ifPresent(this::delete);
+        }
+    }
+
+    @Override
+    public void updateIds(long[] ids) {
+        for (int i = 0; i < ids.length; i++) {
+            findById(ids[i]).ifPresent(this::update);
+        }
     }
 }

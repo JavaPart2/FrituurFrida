@@ -13,4 +13,8 @@ public interface GastenBoekService {
     void update(GastenboekBericht gastenboekBericht);
     void delete(GastenboekBericht gastenboekBericht);
     long insert(GastenboekBericht gastenboekBericht);
+
+    void deleteIds(long[] ids);
+
+    void updateIds(long[] ids);
 }

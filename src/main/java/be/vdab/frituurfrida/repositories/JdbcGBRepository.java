@@ -73,7 +73,8 @@ public class JdbcGBRepository implements GastenBoekRepository{
 
     @Override
     public long insert(GastenboekBericht gastenboekBericht) {
-        var kolomwaarden = Map.of("naam", gastenboekBericht.getNaam(),
+        var kolomwaarden =
+                Map.of("naam", gastenboekBericht.getNaam(),
                 "bericht", gastenboekBericht.getBericht(),
                 "datum", gastenboekBericht.getDatum());
         var id = insert.executeAndReturnKey(kolomwaarden);
