@@ -55,7 +55,7 @@ public class DefaultBerichtService implements GastenBoekService{
     @Override
     public void deleteIds(long[] ids) {
         for (int i = 0; i < ids.length; i++) {
-            findById(ids[i]).ifPresent(this::delete);
+            findById(ids[i]).ifPresent(gastenboekBericht -> repository.delete(gastenboekBericht));
         }
     }
 
